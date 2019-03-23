@@ -1,9 +1,12 @@
-package com.jangni.jersey;
+package com.jangni.jersey.config;
 
+import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.internal.process.Endpoint;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 import org.springframework.stereotype.Component;
+
+import javax.ws.rs.ApplicationPath;
 
 /**
  * @ClassName JerseyConfig
@@ -13,14 +16,17 @@ import org.springframework.stereotype.Component;
  * @Version 1.0
  **/
 @Component
+@ApplicationPath("jersey")
 public class JerseyConfig extends ResourceConfig {
 
     public JerseyConfig() {
+        //提供手动注册组件
         register(RequestContextFilter.class);
-        //配置restful package.
-        packages("com.jangni");
-
-
+        //自动扫描包
+        packages("com.jangni.jersey.resource");
+       //手动添加配置选项
+        property(LoggingFeature.LOGGING_FEATURE_LOGGER_LEVEL_SERVER,"INFO");
+        property(LoggingFeature.LOGGING_FEATURE_VERBOSITY_SERVER,LoggingFeature.Verbosity.PAYLOAD_ANY);
     }
 
 }

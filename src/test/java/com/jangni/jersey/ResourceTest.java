@@ -1,14 +1,13 @@
 package com.jangni.jersey;
 
+import com.jangni.jersey.resource.AsyncResource;
 import org.glassfish.jersey.client.ClientConfig;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.concurrent.Callable;
+import java.util.concurrent.*;
 
 /**
  * @ClassName TestEndpointTest
@@ -35,7 +34,7 @@ public class ResourceTest implements Callable<Response> {
         pool.afterPropertiesSet();
 
         Long count = 1L;
-        for (int i=1;i<100;i++){
+        for (int i=0;i<1;i++){
             pool.submit(new ResourceTest(count++));
         }
         pool.shutdown();
@@ -45,7 +44,6 @@ public class ResourceTest implements Callable<Response> {
     public Response call() throws Exception {
         ClientConfig config = new ClientConfig();
         Client client = ClientBuilder.newClient(config);
-
         Response r = client
                 .target("http://localhost:8080/jersey/hello")
                 .request()
@@ -60,5 +58,20 @@ public class ResourceTest implements Callable<Response> {
         }
         client.close();
         return r;
+    }
+
+
+    public static void asyncPost() throws InterruptedException, ExecutionException, TimeoutException {
+        ClientConfig config = new ClientConfig();
+        final Client client =ClientBuilder.newClient(config);
+        WebTarget webTarget = client.target("http://localhost:8080/jersey/hello");
+        final AsyncInvoker async = webTarget.request().header("type","1234").async();
+       for (int i =0 ;i<=10; i++){
+
+           Entity<String> entity = Entity.entity("<xml><root>abce</root></xml>",MediaType.APPLICATION_JSON);
+            final Future<String> responseFuture = async.post(entity, String.class);
+            String result = responseFuture.get(AsyncResource.TIMEOUT + 1, TimeUnit.SECONDS);
+            System.out.println(result);
+        }
     }
 }

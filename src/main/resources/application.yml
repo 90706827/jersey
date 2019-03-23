@@ -1,0 +1,16 @@
+db:
+  tomcat:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: root
+    maxActive: 20
+    maxIdle: 10
+    defaultAutoCommit: true
+    timeBetweenEvictionRunsMillis: 900000
+    minEvictableIdleTimeMillis: 1800000
+    testOnBorrow: true
+    validationQuery: select 1
+    maxWait: 3000
+    validationQueryTimeout: 2
+    validationInterval: 30000

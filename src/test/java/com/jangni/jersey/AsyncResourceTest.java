@@ -1,6 +1,7 @@
 package com.jangni.jersey;
 
 
+import com.jangni.jersey.resource.AsyncResource;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.test.TestProperties;

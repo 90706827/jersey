@@ -1,4 +1,4 @@
-package com.jangni.jersey;
+package com.jangni.jersey.resource;
 
 import org.springframework.stereotype.Component;
 

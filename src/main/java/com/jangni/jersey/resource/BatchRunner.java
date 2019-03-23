@@ -1,8 +1,7 @@
-package com.jangni.jersey;
+package com.jangni.jersey.resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.concurrent.Callable;
@@ -16,8 +15,8 @@ import java.util.concurrent.Callable;
  **/
 
 class BatchRunner implements Callable<String> {
-    private String books;
     private Logger logger = LoggerFactory.getLogger(BatchRunner.class);
+    private String books;
 
     public BatchRunner(String books) {
         this.books = books;
