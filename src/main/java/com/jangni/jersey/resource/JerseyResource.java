@@ -1,5 +1,7 @@
 package com.jangni.jersey.resource;
 
+import com.jangni.jersey.service.TranListService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.HeaderParam;
@@ -22,6 +24,8 @@ import java.util.Map;
 @Component
 @Path("/")
 public class JerseyResource {
+    @Autowired
+    TranListService tranListService;
 
     @POST
     @Path("/hello")
@@ -34,6 +38,7 @@ public class JerseyResource {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("code", sleep);
         map.put("codeMsg", type);
+        tranListService.save();
         try {
             Thread.sleep(sleep);
         } catch (InterruptedException e) {

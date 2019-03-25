@@ -41,7 +41,7 @@ public class TranListDao {
     }
 
     public int save(TranList tranList) {
-        String sql = "inset into t_l_tran_list(tran_no,tran_type,tran_amt,ccy_code,order_no,order_date,order_time,orig_tran_no,bank_no,bank_date,bank_time,orig_bank_no) values(?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into t_l_tran_list(tran_no,tran_type,tran_amt,ccy_code,order_no,order_date,order_time) values(?,?,?,?,?,?,?)";
         return jdbcTemplate.update(sql,
                 tranList.getTranNo(),
                 tranList.getTranType(),
@@ -49,12 +49,7 @@ public class TranListDao {
                 tranList.getCcyCode(),
                 tranList.getOrderNo(),
                 tranList.getOrderDate(),
-                tranList.getOrderTime(),
-                tranList.getOrigTranNo(),
-                tranList.getBankNo(),
-                tranList.getBankDate(),
-                tranList.getBankTime(),
-                tranList.getOrigBankNo());
+                tranList.getOrderTime());
     }
 
 
