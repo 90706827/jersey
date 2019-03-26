@@ -1,7 +1,7 @@
 db:
   tomcat:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/jangni?useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://localhost:3306/test?useSSL=false&useUnicode=true&zeroDateTimeBehavior=convertToNull
     username: root
     password: root
     maxActive: 20

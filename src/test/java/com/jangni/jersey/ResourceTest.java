@@ -48,11 +48,15 @@ public class ResourceTest implements Callable<Response> {
                 .target("http://localhost:8080/jersey/hello")
                 .request()
                 .accept(MediaType.APPLICATION_JSON)
+                .header("Content-Type",MediaType.APPLICATION_JSON)
                 .header("type", count)
                 .post(Entity.entity("<xml><root>abce</root></xml>", "text/xml; charset=utf-8"));
 
         System.out.println(r);
         if (r.getStatus() == 200) {
+            String body = r.readEntity(String.class);
+            System.out.println(body);
+        }else{
             String body = r.readEntity(String.class);
             System.out.println(body);
         }

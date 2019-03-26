@@ -1,13 +1,15 @@
 package com.jangni.jersey.resource;
 
+import com.jangni.jersey.core.RespCode;
+import com.jangni.jersey.core.RestResponse;
+import com.jangni.jersey.exec.ResponseExecption;
 import com.jangni.jersey.service.TranListService;
+import org.apache.catalina.filters.RestCsrfPreventionFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
@@ -32,12 +34,15 @@ public class JerseyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public void message(String context,
                         @HeaderParam("type") String type,
-                        @Suspended AsyncResponse asyncResponse) {
+                        @Suspended AsyncResponse asyncResponse) throws Throwable {
         System.out.println(type+context);
         int sleep = (int) (Math.random() * 1000+1000);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("code", sleep);
         map.put("codeMsg", type);
+        if(type != null){
+            throw new ResponseExecption("参数为空",new RestResponse(RespCode.OK));
+        }
         tranListService.save();
         try {
             Thread.sleep(sleep);

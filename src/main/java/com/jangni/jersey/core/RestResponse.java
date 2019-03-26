@@ -1,7 +1,7 @@
 package com.jangni.jersey.core;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.util.ObjectUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -12,111 +12,40 @@ import java.io.Serializable;
  * @Date 2019/3/25 19:43
  * @Version 1.0
  **/
+@Data
 public class RestResponse<T> implements Serializable {
-    private int status;
-    private int code;
-    private String message;
-    private Throwable throwable;
+
+    private String code;
     private T data;
+    private String desc;
+    //自定义状态不参与JSON
+    @JsonIgnore
+    private RespCode respCode;
+    private int status = 200;
+    /**
+     * Author Mr.Jangni
+     * Description 没有返回数据的构造方法
+     * Date 2019/3/27 0:31
+     * Param [respCode]
+     * Return  
+     **/
+    public RestResponse(RespCode respCode) {
+        this.respCode = respCode;
+        this.code = respCode.getCode();
+        this.desc = respCode.getDesc();
+    }
 
-    public RestResponse(int status, int code, String message, Throwable throwable, T data) {
-        this.status = status;
-        this.code = code;
-        this.message = message;
-        this.throwable = throwable;
+    /**
+     * Author Mr.Jangni
+     * Description 有返回数据的构造方法
+     * Date 2019/3/27 0:31
+     * Param [respCode, data]
+     * Return  
+     **/
+    RestResponse(RespCode respCode, T data) {
+        this.respCode = respCode;
+        this.code = respCode.getCode();
+        this.desc = respCode.getDesc();
         this.data = data;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public Throwable getThrowable() {
-        return throwable;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o instanceof RestResponse) {
-            RestResponse re = (RestResponse) o;
-            return getStatus() == re.getStatus() &&
-                    getCode() == re.getCode() &&
-                    ObjectUtils.nullSafeEquals(getMessage(), re.getMessage()) &&
-                    ObjectUtils.nullSafeEquals(getThrowable(), re.getThrowable()) &&
-                    ObjectUtils.nullSafeEquals(getData(), re.getData());
-        }
-
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        // noinspection ThrowableResultOfMethodCallIgnored
-        return ObjectUtils.nullSafeHashCode(new Object[] {
-                getStatus(), getCode(), getMessage(),getThrowable(), getData()
-        });
-    }
-
-    public static class Builder<T> {
-
-        private HttpStatus status;
-        private int code;
-        private String message;
-        private Throwable throwable;
-        private T data;
-
-        public Builder() {}
-
-        public Builder setStatus(int statusCode) {
-            this.status = HttpStatus.valueOf(statusCode);
-            return this;
-        }
-
-        public Builder setStatus(HttpStatus status) {
-            this.status = status;
-            return this;
-        }
-
-        public Builder setCode(int code) {
-            this.code = code;
-            return this;
-        }
-
-        public Builder setMessage(String message) {
-            this.message = message;
-            return this;
-        }
-
-        public Builder setThrowable(Throwable throwable) {
-            this.throwable = throwable;
-            return this;
-        }
-
-        public Builder setData(T data) {
-            this.data = data;
-            return this;
-        }
-
-        public RestResponse<T> build() {
-            if (this.status == null) {
-                this.status = HttpStatus.INTERNAL_SERVER_ERROR;
-            }
-            return new RestResponse(this.status.value(), this.code, this.message,this.throwable, this.data);
-        }
     }
 }
