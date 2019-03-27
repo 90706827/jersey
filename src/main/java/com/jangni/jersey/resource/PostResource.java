@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.ws.rs.*;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,14 +35,14 @@ public class PostResource {
     @Path("/hello")
     @Produces(MediaType.APPLICATION_JSON)
     public void message(String context,
-                        @HeaderParam("type") String type,
+                        @HeaderParam("token") String token,
                         @Suspended AsyncResponse asyncResponse) throws Throwable {
-        System.out.println(type+context);
+        System.out.println(token+context);
         int sleep = (int) (Math.random() * 1000+1000);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("code", sleep);
-        map.put("codeMsg", type);
-        if(StringUtils.isEmpty(type)){
+        map.put("codeMsg", token);
+        if(StringUtils.isEmpty(token)){
             throw new ResponseExecption("type参数为空",new RestResponse(RespCode.PARAM_ERROR));
         }
         tranListService.save();

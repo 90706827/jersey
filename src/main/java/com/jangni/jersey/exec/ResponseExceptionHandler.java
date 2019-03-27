@@ -33,7 +33,7 @@ public class ResponseExceptionHandler implements ExceptionMapper<Exception> {
 
             logger.error("客户端请求路径错误:", e);
             RestResponse rest = new RestResponse(RespCode.URL_ERROR);
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(rest).type(MediaType.APPLICATION_JSON).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(rest).type(MediaType.APPLICATION_JSON).build();
         } else {
             logger.error("未知异常:", e);
             RestResponse rest = new RestResponse(RespCode.SYS_ERROR);

@@ -28,12 +28,13 @@ public class GetResource {
     TranListService tranListService;
 
     @GET
-    @Path("/get")
+    @Path("/get/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void message(String context,
+    public void message(String context, @PathParam("id") String id,
                         @QueryParam("tranNo") String tranNo,
                         @Suspended AsyncResponse asyncResponse) throws Throwable {
+        System.out.println(id);
         if (StringUtils.isEmpty(tranNo)) {
             throw new ResponseExecption("参数错误tranNo：", new RestResponse(RespCode.PARAM_ERROR));
         }

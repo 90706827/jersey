@@ -23,7 +23,13 @@ public class ResponseExecption extends Exception {
     public ResponseExecption() {
 
     }
-
+    /**
+     * Author Mr.Jangni
+     * Description
+     * Date 2019/3/27 23:59
+     * Param [message, restResponse]
+     * Return  
+     **/
     public ResponseExecption(String message, RestResponse restResponse) {
         super(message);
         this.restResponse = restResponse;

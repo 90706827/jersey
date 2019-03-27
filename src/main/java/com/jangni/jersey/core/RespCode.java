@@ -9,9 +9,11 @@ package com.jangni.jersey.core;
  **/
 public enum RespCode {
     OK("200", "交易成功"),
-    URL_ERROR("400", "请求URL异常"),
+    URL_ERROR("404", "请求URL异常"),
     PARAM_ERROR("401", "请求参数异常"),
-    SYS_ERROR("500", "系统异常");
+    UPLOAD_ERROR("501", "上传文件失败"),
+    FILE_NOT_FILE_ERROR("502", "文件不存在"),
+    SYS_ERROR("599", "系统异常");
 
     private final String code;
     private final String desc;

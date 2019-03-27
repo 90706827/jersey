@@ -1,8 +1,8 @@
 package com.jangni.jersey.config;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.jangni.jersey.exec.ResponseExceptionHandler;
 import org.glassfish.jersey.logging.LoggingFeature;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 import org.springframework.stereotype.Component;
@@ -36,8 +36,8 @@ public class JerseyConfig extends ResourceConfig {
         // 注册数据转换器，支持传参和返回信息json格式与bean之间的自动转换 springboot框架忽略
 //        register(JacksonJsonProvider.class);
 
-        // 注册支持multipart-formdata格式的请求
-//        register(org.glassfish.jersey.media.multipart.MultiPartFeature.class);
+        // 上传下载 注册支持multipart-formdata格式的请求
+        register(MultiPartFeature.class);
 
     }
 

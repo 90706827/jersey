@@ -52,18 +52,16 @@ public class PostResourceTest implements Callable<Response> {
 
         Client client = ClientBuilder.newClient(config);
         Response resp = client
-                .target("http://localhost:8080")
+                .target("http://localhost:8081")
 //                .register(Filter.class)
                 .path("jersey")
                 .path("hello")
-//                GET URL 参数
-//                .queryParam("","")
                 .request()
                 .acceptEncoding("UTF-8")
                 .accept(MediaType.APPLICATION_JSON)
 //                添加头参数
                 .header("Content-Type", MediaType.APPLICATION_JSON)
-                .header("type", count)
+                .header("token", count)
                 .post(Entity.entity("<xml><root>abce</root></xml>", "text/xml; charset=utf-8"));
 
         System.out.println(resp);
@@ -82,7 +80,7 @@ public class PostResourceTest implements Callable<Response> {
     public static void asyncPost() throws InterruptedException, ExecutionException, TimeoutException {
         ClientConfig config = new ClientConfig();
         final Client client = ClientBuilder.newClient(config);
-        WebTarget webTarget = client.target("http://localhost:8080/jersey/hello");
+        WebTarget webTarget = client.target("http://localhost:8081/jersey/hello");
         final AsyncInvoker async = webTarget.request().header("type", "1234").async();
         for (int i = 0; i <= 10; i++) {
 
