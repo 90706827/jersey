@@ -17,6 +17,7 @@ import javax.ws.rs.ApplicationPath;
  * @Version 1.0
  **/
 @Component
+//指定基础路径
 @ApplicationPath("jersey")
 public class JerseyConfig extends ResourceConfig {
 
@@ -32,7 +33,7 @@ public class JerseyConfig extends ResourceConfig {
         //自定义异常处理
         register(ResponseExceptionHandler.class);
         packages("com.jangni.jersey.exec");
-        // 注册数据转换器，支持传参和返回信息json格式与bean之间的自动转换
+        // 注册数据转换器，支持传参和返回信息json格式与bean之间的自动转换 springboot框架忽略
 //        register(JacksonJsonProvider.class);
 
         // 注册支持multipart-formdata格式的请求

@@ -10,6 +10,7 @@ package com.jangni.jersey.core;
 public enum RespCode {
     OK("200", "交易成功"),
     URL_ERROR("400", "请求URL异常"),
+    PARAM_ERROR("401", "请求参数异常"),
     SYS_ERROR("500", "系统异常");
 
     private final String code;

@@ -22,16 +22,19 @@ public class TranListService {
     @Autowired
     TranListDao tranListDao;
 
-    public void save(){
+    public void save() {
         TranList tranList = new TranList();
-        tranList.setTranNo(UUID.randomUUID().toString().replace("-",""));
+        tranList.setTranNo(UUID.randomUUID().toString().replace("-", ""));
         tranList.setTranType("01");
         tranList.setTranAmt("100000");
         tranList.setCcyCode("156");
-        tranList.setOrderNo(UUID.randomUUID().toString().replace("-",""));
-        tranList.setOrderDate(DateUtils.formatByDateTimePattern(new Date(),DateUtils.DAY_YYYYMMDD));
-        tranList.setOrderTime(DateUtils.formatByDateTimePattern(new Date(),DateUtils.DAY_HHMMSS));
+        tranList.setOrderNo(UUID.randomUUID().toString().replace("-", ""));
+        tranList.setOrderDate(DateUtils.formatByDateTimePattern(new Date(), DateUtils.DAY_YYYYMMDD));
+        tranList.setOrderTime(DateUtils.formatByDateTimePattern(new Date(), DateUtils.DAY_HHMMSS));
         tranListDao.save(tranList);
     }
 
+    public TranList getTranListByTranNo(String tranNo) {
+        return tranListDao.getTranListByTranNo(tranNo);
+    }
 }

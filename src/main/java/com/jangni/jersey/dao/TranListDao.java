@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @ClassName TranListDao
  * @Description 交易流水
@@ -24,18 +26,18 @@ public class TranListDao {
         TranList tranList = null;
         if (rs.next()) {
             tranList = new TranList();
-            tranList.setTranNo(rs.getString(0));
-            tranList.setTranType(rs.getString(1));
-            tranList.setTranAmt(rs.getString(2));
-            tranList.setCcyCode(rs.getString(3));
-            tranList.setOrderNo(rs.getString(4));
-            tranList.setOrderDate(rs.getString(5));
-            tranList.setOrderTime(rs.getString(6));
-            tranList.setOrigTranNo(rs.getString(7));
-            tranList.setBankNo(rs.getString(8));
-            tranList.setBankDate(rs.getString(9));
-            tranList.setBankTime(rs.getString(10));
-            tranList.setOrigBankNo(rs.getString(11));
+            tranList.setTranNo(rs.getString(1));
+            tranList.setTranType(rs.getString(2));
+            tranList.setTranAmt(rs.getString(3));
+            tranList.setCcyCode(rs.getString(4));
+            tranList.setOrderNo(rs.getString(5));
+            tranList.setOrderDate(rs.getString(6));
+            tranList.setOrderTime(rs.getString(7));
+            tranList.setOrigTranNo(rs.getString(8));
+            tranList.setBankNo(rs.getString(9));
+            tranList.setBankDate(rs.getString(10));
+            tranList.setBankTime(rs.getString(11));
+            tranList.setOrigBankNo(rs.getString(12));
         }
         return tranList;
     }

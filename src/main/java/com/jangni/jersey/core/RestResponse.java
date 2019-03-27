@@ -29,6 +29,11 @@ public class RestResponse<T> implements Serializable {
      * Param [respCode]
      * Return  
      **/
+    public RestResponse() {
+        this.respCode = RespCode.OK;
+        this.code = respCode.getCode();
+        this.desc = respCode.getDesc();
+    }
     public RestResponse(RespCode respCode) {
         this.respCode = respCode;
         this.code = respCode.getCode();
@@ -42,8 +47,8 @@ public class RestResponse<T> implements Serializable {
      * Param [respCode, data]
      * Return  
      **/
-    RestResponse(RespCode respCode, T data) {
-        this.respCode = respCode;
+    public RestResponse(T data) {
+        this.respCode = RespCode.OK;
         this.code = respCode.getCode();
         this.desc = respCode.getDesc();
         this.data = data;

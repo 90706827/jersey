@@ -7,6 +7,7 @@ import com.jangni.jersey.service.TranListService;
 import org.apache.catalina.filters.RestCsrfPreventionFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.ws.rs.*;
@@ -25,7 +26,7 @@ import java.util.Map;
  **/
 @Component
 @Path("/")
-public class JerseyResource {
+public class PostResource {
     @Autowired
     TranListService tranListService;
 
@@ -40,8 +41,8 @@ public class JerseyResource {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("code", sleep);
         map.put("codeMsg", type);
-        if(type != null){
-            throw new ResponseExecption("参数为空",new RestResponse(RespCode.OK));
+        if(StringUtils.isEmpty(type)){
+            throw new ResponseExecption("type参数为空",new RestResponse(RespCode.PARAM_ERROR));
         }
         tranListService.save();
         try {
@@ -49,7 +50,7 @@ public class JerseyResource {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        asyncResponse.resume(map);
+        asyncResponse.resume(new RestResponse<Map<String,Object>>(map));
     }
 
 }

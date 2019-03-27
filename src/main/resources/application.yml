@@ -1,3 +1,14 @@
+spring:
+  http:
+    # 指定 Jersey 中文编码
+    encoding:
+      force: true
+      charset: utf-8
+server:
+  # 指定服务端口
+  port: 8081
+  session-timeout: 1800
+# 数据库连接配置
 db:
   tomcat:
     driverClassName: com.mysql.jdbc.Driver
