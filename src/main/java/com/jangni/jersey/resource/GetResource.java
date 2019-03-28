@@ -13,6 +13,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @ClassName GetResource
@@ -41,4 +42,5 @@ public class GetResource {
         TranList tranList = tranListService.getTranListByTranNo(tranNo);
         asyncResponse.resume(new RestResponse<TranList>(tranList));
     }
+
 }

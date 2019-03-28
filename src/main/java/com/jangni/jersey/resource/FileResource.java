@@ -35,22 +35,22 @@ import java.util.UUID;
 @Path("/")
 public class FileResource {
 
-    @GET
+    @POST
     @Path("/down")
-    public void down(@QueryParam("filename") String filename,
+    public void down(@FormParam("filename") String filename,
                      @Context HttpServletResponse response,
                      @Context ServletContext ctx) throws Exception {
         response.setHeader("Content-disposition", "attachment;filename=" + filename);
         response.setHeader("Cache-Control", "no-cache");
-        File f = new File(ctx.getRealPath("/upload"), filename);
+        File f = new File("E:\\", filename);
         FileUtils.copyFile(f, response.getOutputStream());
     }
 
-    @GET
-    @Path("/downFile/{filename}")
-    public Response downFile(@PathParam("filename") String filename,
+    @POST
+    @Path("/downFile")
+    public Response downFile(@FormParam("filename") String filename,
                              @Context ServletContext ctx) throws Exception {
-        File f = new File(ctx.getRealPath("/upload"), filename);
+        File f = new File("E:\\", filename);
         if (!f.exists()) {
             throw new ResponseExecption("文件不存在", new RestResponse(RespCode.FILE_NOT_FILE_ERROR));
         } else {
@@ -59,11 +59,14 @@ public class FileResource {
         }
     }
 
-    @GET
-    @Path("/downImage/{filename}")
-    public Response downImage(@PathParam("filename") String filename,
+    /**
+     * 采用StreamingOutput 流的方式下载
+     */
+    @POST
+    @Path("/downImage}")
+    public Response downImage(@FormParam("filename") String filename,
                               @Context ServletContext ctx) throws Exception {
-        File f = new File(ctx.getRealPath("/upload"), filename);
+        File f = new File("E:\\", filename);
         if (!f.exists()) {
             throw new ResponseExecption("文件不存在", new RestResponse(RespCode.FILE_NOT_FILE_ERROR));
         } else {

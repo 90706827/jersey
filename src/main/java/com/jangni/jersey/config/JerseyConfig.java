@@ -1,6 +1,10 @@
 package com.jangni.jersey.config;
 
 import com.jangni.jersey.exec.ResponseExceptionHandler;
+import com.jangni.jersey.filter.RequestFilter;
+import com.jangni.jersey.filter.RequestReaderInterceptor;
+import com.jangni.jersey.filter.ResponseFilter;
+import com.jangni.jersey.filter.ResponseWriterInterceptor;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -38,6 +42,14 @@ public class JerseyConfig extends ResourceConfig {
 
         // 上传下载 注册支持multipart-formdata格式的请求
         register(MultiPartFeature.class);
+
+        //自定义过滤器
+        register(RequestFilter.class);
+        register(ResponseFilter.class);
+        //自定义拦截器
+        register(RequestReaderInterceptor.class);
+        register(ResponseWriterInterceptor.class);
+
 
     }
 

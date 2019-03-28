@@ -2,6 +2,7 @@ package com.jangni.jersey;
 
 import com.jangni.jersey.resource.AsyncResource;
 import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientProperties;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.ws.rs.client.*;
@@ -51,6 +52,8 @@ public class PostResourceTest implements Callable<Response> {
         form.param("type", "1001");
 
         Client client = ClientBuilder.newClient(config);
+        client.property(ClientProperties.CONNECT_TIMEOUT,2000);
+        client.property(ClientProperties.READ_TIMEOUT,2000);
         Response resp = client
                 .target("http://localhost:8081")
 //                .register(Filter.class)

@@ -8,6 +8,7 @@ package com.jangni.jersey.core;
  * @Version 1.0
  **/
 public enum RespCode {
+    // 交易状态码
     OK("200", "交易成功"),
     URL_ERROR("404", "请求URL异常"),
     PARAM_ERROR("401", "请求参数异常"),
@@ -31,6 +32,7 @@ public enum RespCode {
         return desc;
     }
 
+    @Override
     public String toString() {
         return "响应码：" + code + "响应描述" + desc;
     }
