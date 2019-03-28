@@ -1,6 +1,7 @@
 package com.jangni.jersey.resource;
 
 import com.jangni.jersey.core.JobContext;
+import com.jangni.jersey.core.RestResponse;
 import com.jangni.jersey.entity.TranList;
 import com.jangni.jersey.service.TranListService;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.container.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -33,6 +35,8 @@ public class AsyncResource {
     private Logger logger = LoggerFactory.getLogger(AsyncResource.class);
     final ExecutorService threadPool = Executors.newFixedThreadPool(10);
 
+    @Autowired
+    TranListService tranListService;
     /**
      * //异步资源方法需要@Suspended注解和AsyncResponse参数
      *
@@ -47,11 +51,15 @@ public class AsyncResource {
         JobContext context = new JobContext();
         context.setAsyncResponse(asyncResponse);
         context.setTranNo(tranNo);
-        //该方法用于定义回调
-        configResponse(context);
-        final BatchRunner batchTask = new BatchRunner(context);
-        threadPool.submit(batchTask);
+//        //该方法用于定义回调
+//        configResponse(context);
+//        final BatchRunner batchTask = new BatchRunner(context);
+//        threadPool.submit(batchTask);
+//        CompletableFuture<Response> future = veryExpensiveOperation(path);
+       tranListService.veryExpensiveOperation(context);
+
     }
+
 
     /**
      * 回调方法  当请你去处理完成之后,CompletionCallback实例的onComplete()方法将会被回调,实现onComplete()方法,

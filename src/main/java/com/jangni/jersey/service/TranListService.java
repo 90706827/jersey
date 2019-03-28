@@ -1,5 +1,7 @@
 package com.jangni.jersey.service;
 
+import com.jangni.jersey.core.JobContext;
+import com.jangni.jersey.core.RestResponse;
 import com.jangni.jersey.dao.TranListDao;
 import com.jangni.jersey.entity.TranList;
 import com.jangni.jersey.utils.DateUtils;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @ClassName TranListService
@@ -22,6 +25,10 @@ public class TranListService {
     @Autowired
     TranListDao tranListDao;
 
+    public TranList getTranListByTranNo(String tranNo) {
+        return tranListDao.getTranListByTranNo(tranNo);
+    }
+
     public void save() {
         TranList tranList = new TranList();
         tranList.setTranNo(UUID.randomUUID().toString().replace("-", ""));
@@ -34,7 +41,16 @@ public class TranListService {
         tranListDao.save(tranList);
     }
 
-    public TranList getTranListByTranNo(String tranNo) {
-        return tranListDao.getTranListByTranNo(tranNo);
+    public void veryExpensiveOperation(JobContext context) {
+
+        CompletableFuture<RestResponse> completableFuture = new CompletableFuture<>();
+
+        new Thread(() -> {
+            TranList tranList = tranListDao.getTranListByTranNo(context.getTranNo());
+            //do expensive stuff here
+            completableFuture.complete(new RestResponse(tranList));
+        }).start();
+
+        completableFuture.thenAccept(resp -> context.getAsyncResponse().resume(resp));
     }
 }
