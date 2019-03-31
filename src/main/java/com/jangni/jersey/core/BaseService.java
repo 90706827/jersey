@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
  **/
 public class BaseService {
     protected ThreadPoolTaskExecutor pool = getThreadPoolTaskExecutor();
-    protected ListeningExecutorService executorService = MoreExecutors.listeningDecorator(Executors.newCachedThreadPool());
+    protected static ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newCachedThreadPool());
     private ThreadPoolTaskExecutor getThreadPoolTaskExecutor() {
         pool = new ThreadPoolTaskExecutor();
         pool.setCorePoolSize(4);

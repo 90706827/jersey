@@ -59,7 +59,7 @@ public class TranListService extends BaseService {
 //        completableFuture.thenAccept(resp -> context.getAsyncResponse().resume(resp));
 
 
-        ListenableFuture<TranList> listenableFuture = executorService.submit(new Callable<TranList>() {
+        ListenableFuture<TranList> listenableFuture = service.submit(new Callable<TranList>() {
             @Override
             public TranList call() throws Exception {
                 TranList tranList = tranListDao.getTranListByTranNo(context.getTranNo());
