@@ -1,6 +1,7 @@
 package com.jangni.jersey;
 
 import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientProperties;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -23,6 +24,8 @@ public class GetResourceTest {
                 .target("http://localhost:8081")
                 .path("jersey")
                 .path("get")
+                .property(ClientProperties.CONNECT_TIMEOUT,10000)
+                .property(ClientProperties.READ_TIMEOUT,50000)
                 .path("655cd5e4c8e645208437187f482fcdbe")
 //                GET URL 参数
                 .queryParam("tranNo", "655cd5e4c8e645208437187f482fcdbe")

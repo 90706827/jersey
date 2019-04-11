@@ -2,6 +2,7 @@ package com.jangni.jersey;
 
 import com.jangni.jersey.module.Users;
 import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientProperties;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -29,6 +30,8 @@ public class FromResourceTest {
                 .target("http://localhost:8081")
                 .path("jersey")
                 .path("form")
+                .property(ClientProperties.CONNECT_TIMEOUT,10000)
+                .property(ClientProperties.READ_TIMEOUT,50000)
 //                .path("bean")
                 .request()
                 .acceptEncoding("UTF-8")

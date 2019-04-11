@@ -59,6 +59,8 @@ public class PostResourceTest implements Callable<Response> {
 //                .register(Filter.class)
                 .path("jersey")
                 .path("hello")
+                .property(ClientProperties.CONNECT_TIMEOUT,10000)
+                .property(ClientProperties.READ_TIMEOUT,50000)
                 .request()
                 .acceptEncoding("UTF-8")
                 .accept(MediaType.APPLICATION_JSON)
@@ -83,7 +85,9 @@ public class PostResourceTest implements Callable<Response> {
     public static void asyncPost() throws InterruptedException, ExecutionException, TimeoutException {
         ClientConfig config = new ClientConfig();
         final Client client = ClientBuilder.newClient(config);
-        WebTarget webTarget = client.target("http://localhost:8081/jersey/hello");
+        WebTarget webTarget = client.target("http://localhost:8081/jersey/hello")
+                .property(ClientProperties.CONNECT_TIMEOUT,10000)
+                .property(ClientProperties.READ_TIMEOUT,50000);
         final AsyncInvoker async = webTarget.request().header("type", "1234").async();
         for (int i = 0; i <= 10; i++) {
 

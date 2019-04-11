@@ -3,6 +3,7 @@ package com.jangni.jersey;
 import org.apache.catalina.WebResource;
 import org.apache.commons.io.FileUtils;
 import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientProperties;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.glassfish.jersey.media.multipart.MultiPart;
@@ -62,6 +63,8 @@ public class FileResourceTest {
                 .target("http://localhost:8081")
                 .path("jersey")
                 .path("upload")
+                .property(ClientProperties.CONNECT_TIMEOUT,10000)
+                .property(ClientProperties.READ_TIMEOUT,50000)
                 .request()
                 .accept(MediaType.APPLICATION_JSON)
                 .header("Content-Type", MediaType.MULTIPART_FORM_DATA)

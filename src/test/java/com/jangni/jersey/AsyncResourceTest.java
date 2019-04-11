@@ -2,7 +2,9 @@ package com.jangni.jersey;
 
 
 import com.jangni.jersey.resource.AsyncResource;
+import org.apache.http.client.config.RequestConfig;
 import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientProperties;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.test.TestProperties;
@@ -33,6 +35,8 @@ public class AsyncResourceTest  {
         Client client = ClientBuilder.newClient(config);
         Response resp = client
                 .target("http://localhost:8081")
+                .property(ClientProperties.CONNECT_TIMEOUT,10000)
+                .property(ClientProperties.READ_TIMEOUT,50000)
                 .path("jersey")
                 .path("tran")
                 .queryParam("tranNo","655cd5e4c8e645208437187f482fcdbe")
