@@ -21,6 +21,7 @@ public class JerseyApplication {
 
     @Bean
     public ServletRegistrationBean jerseyServlet() {
+
         ServletRegistrationBean registration = new ServletRegistrationBean(new ServletContainer(), "/jersey/*");
         registration.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, JerseyConfig.class.getName());
         return registration;

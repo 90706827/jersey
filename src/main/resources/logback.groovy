@@ -4,9 +4,9 @@ import java.nio.charset.Charset
 
 //根路径
 //根路径
-//String user_home = System.getProperty("user.home")
-//String logPath = "${user_home}/log"
-String appPath = "E:/logs/"
+String user_home = System.getProperty("user.home")
+String appPath = "${user_home}/log"
+//String appPath = "D:/logs/"
 //日志输出前置统一格式
 String commonPattern = "BaseLog %d{yyyy-MM-dd HH:mm:ss SSS}|%-5level|%-30thread|%logger{36}|%msg%n"
 
