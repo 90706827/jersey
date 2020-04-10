@@ -28,7 +28,7 @@ public class RequestFilter implements ContainerRequestFilter {
     public void filter(ContainerRequestContext request) throws IOException {
         logger.info("Request Filter Test ----");
         logger.info(request.getMethod());
-        logger.info(request.getMediaType().getType());
+//        logger.info(request.getMediaType().getType());
         logger.info(request.getUriInfo().getRequestUriBuilder().toString());
         logger.info(request.getHeaders().toString());
     }
